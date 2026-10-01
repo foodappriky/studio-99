@@ -7,10 +7,34 @@ export const json = (data, status = 200) =>
     headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" },
   });
 
-// Vercel → Storage → Upstash for Redis upisuje KV_REST_API_URL/TOKEN (ili UPSTASH_REDIS_REST_URL/TOKEN)
-const KV_URL = () => (env("KV_REST_API_URL") || env("UPSTASH_REDIS_REST_URL")).replace(/\/$/, "");
-const KV_TOKEN = () => env("KV_REST_API_TOKEN") || env("UPSTASH_REDIS_REST_TOKEN");
+// Baza: Upstash Redis. Vercel kod spajanja ponekad doda prefiks imenima (npr. STORAGE_KV_REST_API_URL),
+// zato tražimo bilo koje ime koje tako završava. Radi i s REDIS_URL ako je Upstash (rediss://...upstash.io).
+const keys = () => Object.keys(process.env);
+const findEnd = (ends, not) => {
+  for (const e of ends) {
+    const k = keys().find((k) => k.endsWith(e) && !(not && not.test(k)) && env(k));
+    if (k) return env(k);
+  }
+  return "";
+};
+function fromRedisUrl() {
+  const raw = findEnd(["REDIS_URL", "KV_URL"]);
+  try {
+    const u = new URL(raw);
+    if (!/upstash\.io$/.test(u.hostname) || !u.password) return null;
+    return { url: "https://" + u.hostname, token: decodeURIComponent(u.password) };
+  } catch { return null; }
+}
+const KV_URL = () =>
+  (findEnd(["KV_REST_API_URL", "UPSTASH_REDIS_REST_URL", "REDIS_REST_URL"]) || fromRedisUrl()?.url || "").replace(/\/$/, "");
+const KV_TOKEN = () =>
+  findEnd(["KV_REST_API_TOKEN", "UPSTASH_REDIS_REST_TOKEN", "REDIS_REST_TOKEN"], /READ_ONLY/) || fromRedisUrl()?.token || "";
 export const kvReady = () => !!(KV_URL() && KV_TOKEN());
+// Samo IMENA varijabli (bez vrijednosti) da se vidi što Vercel stvarno ima
+export const kvDijagnoza = () => {
+  const n = keys().filter((k) => /KV|REDIS|UPSTASH|ADMIN_PIN|BLOB/.test(k)).sort();
+  return n.length ? "Vidim: " + n.join(", ") : "Nema nijedne varijable za bazu. Napravi Redeploy nakon spajanja baze.";
+};
 
 export async function kv(...cmd) {
   const r = await fetch(KV_URL(), {

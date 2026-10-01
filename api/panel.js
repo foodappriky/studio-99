@@ -1,6 +1,6 @@
 // POST /api/panel — sve radnje panela #/upiti. Ulaz šifrom (ADMIN_PIN u Vercelu).
 // Nakon 5 krivih pokušaja ulaz se zaključa na 15 minuta.
-import { json, kv, kvPipe, kvReady, PIN, STATUSI } from "./_kv.js";
+import { json, kv, kvPipe, kvReady, kvDijagnoza, PIN, STATUSI } from "./_kv.js";
 
 const LOCK_TRIES = 5, LOCK_SEC = 15 * 60;
 const ID_RE = /^[0-9a-f-]{36}$/i;
@@ -12,7 +12,7 @@ async function load(id) {
 async function save(u) { await kv("SET", `upit:${u.id}`, JSON.stringify(u)); return u; }
 
 export async function POST(request) {
-  if (!kvReady()) return json({ ok: false, error: "Baza nije spojena (Vercel → Storage)." }, 500);
+  if (!kvReady()) return json({ ok: false, error: "Baza nije spojena. " + kvDijagnoza() }, 500);
   if (!PIN()) return json({ ok: false, error: "Šifra nije postavljena (ADMIN_PIN u Vercelu)." }, 500);
 
   const ip = (request.headers.get("x-forwarded-for") || "x").split(",")[0].trim();
