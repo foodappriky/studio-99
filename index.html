@@ -1345,7 +1345,7 @@ window.IMG = {"c-desk-stick": "data:image/webp;base64,UklGRsJuAABXRUJQVlA4ILZuAA
 
   /* ---- ulaz / izlaz ---- */
   function route(){
-    var on = location.hash === "#/upiti";
+    var on = location.hash === "#/upiti" || /^\/upiti\/?$/.test(location.pathname);
     adm.hidden = !on; document.body.classList.toggle("adm-on", on);
     if (on && !started){ started = true; boot(); }
     if (on) window.scrollTo(0, 0);
@@ -1373,7 +1373,7 @@ window.IMG = {"c-desk-stick": "data:image/webp;base64,UklGRsJuAABXRUJQVlA4ILZuAA
       $("aPinMsg").textContent = ""; enter();
     }, function(err){ if (err.message !== "pin") $("aPinMsg").textContent = err.message; });
   });
-  $("aOut").addEventListener("click", function(){ lock(""); location.hash = ""; });
+  $("aOut").addEventListener("click", function(){ lock(""); if (/^\/upiti/.test(location.pathname)) location.href = "/"; else location.hash = ""; });
   $("aRefresh").addEventListener("click", function(){ load(true).then(function(){ toast("Osvježeno."); }, function(){}); });
   $("aQ").addEventListener("input", function(){ q = this.value.trim().toLowerCase(); list(); });
 
