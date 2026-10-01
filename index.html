@@ -250,6 +250,17 @@ figure{margin:0}
 @media(max-width:700px){.svc__row{grid-template-columns:1fr 1fr}.svc__row .shot:first-child{grid-column:1/-1}}
 .svc__foot{margin-top:22px;display:flex;justify-content:flex-start}
 
+/* popis usluga — grupirano, bez kvačica */
+.svlist{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(18px,2.6vw,36px);
+  margin-top:clamp(24px,3vw,34px);padding-top:clamp(20px,2.6vw,28px);border-top:1px solid var(--line-2)}
+@media(max-width:900px){.svlist{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.svlist h4{font-family:var(--f-mono);font-size:.7rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--acc-c,var(--red));margin-bottom:8px}
+.svlist li{font-family:var(--f-display);font-weight:700;font-size:clamp(1.02rem,1.35vw,1.2rem);letter-spacing:-.015em;line-height:1.25;
+  color:var(--ink-deep);padding:10px 0;border-bottom:1px solid var(--line);transition:color .25s,padding-left .3s}
+.svlist li:last-child{border-bottom:0}
+.svlist li:hover{color:var(--acc-c,var(--red));padding-left:6px}
+@media(max-width:480px){.svlist{gap:18px 16px}.svlist li{font-size:.98rem;padding:8px 0}}
 /* ==================== ZAŠTO ==================== */
 .why{padding:clamp(40px,6vw,80px) 0 clamp(70px,9vw,120px)}
 .why__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,2vw,22px)}
@@ -383,7 +394,7 @@ footer{background:var(--ink-deep);color:var(--on-dark);padding:clamp(54px,7vw,90
 
 /* ==================== SLIKE: uvećanje, paralaksa, nagib ==================== */
 .zoom{cursor:zoom-in}
-.zoom::after{content:"";position:absolute;top:10px;right:10px;width:32px;height:32px;border-radius:50%;
+.zoom::after{display:none;content:"";position:absolute;top:10px;right:10px;width:32px;height:32px;border-radius:50%;
   background:rgba(38,38,38,.62) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='6'/%3E%3Cpath d='M20 20l-4.5-4.5M11 8.5v5M8.5 11h5'/%3E%3C/svg%3E") center/18px no-repeat;
   opacity:0;transform:scale(.85);transition:opacity .25s,transform .25s;backdrop-filter:blur(4px)}
 .zoom:hover::after,.zoom:focus-visible::after{opacity:1;transform:none}
@@ -405,14 +416,12 @@ footer{background:var(--ink-deep);color:var(--on-dark);padding:clamp(54px,7vw,90
 .svc--print .checks{margin-top:26px}
 
 /* panorama uređaja */
-.pano{position:relative;overflow:hidden;border-radius:14px;height:clamp(230px,30vw,400px);background:#BFAE96;
-  cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none;
+.pano{position:relative;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-x:contain;border-radius:14px;height:clamp(230px,30vw,400px);background:#BFAE96;
+  cursor:grab;touch-action:pan-x pan-y;user-select:none;-webkit-user-select:none;
   box-shadow:inset 0 0 0 1px rgba(38,38,38,.08),0 14px 30px -20px rgba(38,38,38,.6)}
 .pano.grabbing{cursor:grabbing}
-.pano img{position:absolute;left:0;top:0;height:100%;width:auto;max-width:none;will-change:transform;pointer-events:none}
-.pano::before,.pano::after{content:"";position:absolute;top:0;bottom:0;width:60px;z-index:1;pointer-events:none}
-.pano::before{left:0;background:linear-gradient(90deg,rgba(241,240,235,.5),transparent)}
-.pano::after{right:0;background:linear-gradient(-90deg,rgba(241,240,235,.5),transparent)}
+.pano::-webkit-scrollbar{display:none}
+.pano img{display:block;height:100%;width:auto;max-width:none;pointer-events:none}
 .pano__hint{position:absolute;z-index:2;right:12px;bottom:12px;font-family:var(--f-mono);font-size:.62rem;letter-spacing:.12em;
   text-transform:uppercase;color:#fff;background:rgba(38,38,38,.7);padding:7px 10px;border-radius:7px;backdrop-filter:blur(4px)}
 
@@ -608,7 +617,7 @@ footer{background:var(--ink-deep);color:var(--on-dark);padding:clamp(54px,7vw,90
           <p class="eyebrow">Usluge</p>
           <h2>Što radimo?</h2>
         </div>
-        <p>Primjeri pokazuju kako jedan brend izgleda na papiru, ambalaži, odjeći, vozilu i ekranu. Kliknite sliku za veći prikaz.</p>
+        <p>Primjeri pokazuju kako jedan brend izgleda na papiru, ambalaži, odjeći, vozilu i ekranu.</p>
       </div>
 
       <article class="svc svc--print rv" data-gallery>
@@ -626,12 +635,8 @@ footer{background:var(--ink-deep);color:var(--on-dark);padding:clamp(54px,7vw,90
               <figure class="shot zoom " data-full="g-van"><img data-img="g-van" alt="Dostavno vozilo s grafikom preko cijele karoserije" style="object-position:62% 50%"><figcaption>Vozila</figcaption></figure>
           </div>
         </div>
-        <ul class="checks">
-            <li>Logo dizajn</li><li>Vizualni identitet</li><li>Branding</li><li>Brand book</li><li>Vizitke</li><li>Flyeri i letci</li><li>Plakati</li>
-            <li>Brošure</li><li>Katalozi</li><li>Cjenici</li><li>Jelovnici</li><li>Pozivnice</li><li>Zahvalnice</li><li>Ambalaža i kutije</li>
-            <li>Etikete i naljepnice</li><li>Majice i radna odjeća</li><li>Merch i promo materijali</li><li>Izlozi</li><li>Natpisi i signalizacija</li><li>Billboardi i roll-upovi</li><li>Grafike za vozila</li>
-          </ul>
-        <div class="note"><div><b>Tisak i izrada na upit</b><p>Nemamo vlastitu tiskaru. Ako uz dizajn trebate i tisak ili izradu, navedite to u upitu. Provjerimo mogućnosti kod partnerskih tiskara i javimo vam ponudu.</p></div></div>
+        <div class="svlist"><div class="svlist__g"><h4>Identitet</h4><ul><li>Logo dizajn</li><li>Vizualni identitet</li><li>Branding</li><li>Brand book</li></ul></div><div class="svlist__g"><h4>Tisak</h4><ul><li>Vizitke</li><li>Letci i flyeri</li><li>Plakati</li><li>Brošure i katalozi</li><li>Cjenici i jelovnici</li><li>Pozivnice i zahvalnice</li></ul></div><div class="svlist__g"><h4>Ambalaža i promo</h4><ul><li>Ambalaža i kutije</li><li>Etikete i naljepnice</li><li>Majice i radna odjeća</li><li>Merch i promo materijali</li></ul></div><div class="svlist__g"><h4>Prostor i vozila</h4><ul><li>Izlozi</li><li>Natpisi i signalizacija</li><li>Billboardi i roll-upovi</li><li>Grafike za vozila</li></ul></div></div>
+        <div class="note"><div><b>Tisak i izrada</b><p>Većinu tiskanih materijala i proizvoda izrađujemo kroz vlastita rješenja, a ono što traži posebnu tehnologiju radimo s provjerenim partnerima. Ako vam treba samo dizajn, dobivate datoteke pripremljene za tisak koje možete odnijeti u bilo koju tiskaru.</p></div></div>
       </article>
 
       <article class="svc svc--web rv">
@@ -641,13 +646,8 @@ footer{background:var(--ink-deep);color:var(--on-dark);padding:clamp(54px,7vw,90
         </div>
         <div class="pano" data-pano role="img" aria-label="Primjeri web stranica i aplikacija na laptopima, tabletima i mobitelima">
           <img data-img="w-pano" alt="" draggable="false">
-          <span class="pano__hint">↔ Povucite ili kliknite za uvećanje</span>
         </div>
-        <ul class="checks">
-          <li>Prezentacijske web stranice</li><li>Poslovne web stranice</li><li>Landing page</li><li>Stranice za restorane i pizzerije</li><li>Stranice za hotele i apartmane</li><li>Stranice za salone i obrte</li>
-          <li>Portfolio stranice</li><li>Blogovi i news portali</li><li>Webshopovi</li><li>Online katalozi</li><li>Rezervacije i booking</li><li>Online naručivanje hrane</li>
-          <li>Korisnički računi i portali</li><li>Administracijska sučelja</li><li>Web aplikacije</li><li>Digitalni proizvodi</li><li>UI/UX dizajn</li><li>Redizajn postojećih stranica</li>
-        </ul>
+        <div class="svlist"><div class="svlist__g"><h4>Web stranice</h4><ul><li>Prezentacijske i poslovne</li><li>Landing page</li><li>Restorani i pizzerije</li><li>Hoteli i apartmani</li><li>Saloni i obrti</li><li>Portfolio, blog i news</li></ul></div><div class="svlist__g"><h4>Prodaja i rezervacije</h4><ul><li>Webshopovi</li><li>Online katalozi</li><li>Rezervacije i booking</li><li>Online naručivanje hrane</li></ul></div><div class="svlist__g"><h4>Sustavi i aplikacije</h4><ul><li>Korisnički računi i portali</li><li>Administracijska sučelja</li><li>Web aplikacije</li><li>Digitalni proizvodi</li></ul></div><div class="svlist__g"><h4>Dizajn i podrška</h4><ul><li>UI/UX dizajn</li><li>Redizajn postojećih stranica</li><li>Responzivni dizajn</li><li>Održavanje i nadogradnje</li></ul></div></div>
       </article>
     </div>
   </section>
@@ -655,7 +655,6 @@ footer{background:var(--ink-deep);color:var(--on-dark);padding:clamp(54px,7vw,90
   <!-- ============ UGOSTITELJI ============ -->
   <section class="hosp home" data-gallery>
     <div class="hosp__bg" data-bg="g-wall" aria-hidden="true"></div>
-    <button class="zoom hosp__zoom" type="button" data-full="g-wall" data-cap="Komplet za ugostitelje: viseći banner, svjetleća tabla, neon, jelovnici, kožne mape i roll-up banneri.">Uvećaj sliku</button>
     <div class="wrap hosp__in">
       <div class="hosp__card rv">
         <p class="eyebrow">Za ugostitelje</p>
@@ -688,7 +687,7 @@ footer{background:var(--ink-deep);color:var(--on-dark);padding:clamp(54px,7vw,90
       <p class="eyebrow">Studio 99 · grafički dizajn</p>
       <h1>Grafički dizajn</h1>
       <p class="subhead__lead">Sve što vaš brend treba da izgleda profesionalno, od logotipa i vizitki do ambalaže, izloga, društvenih mreža i promotivnih materijala. Niže je popis onoga što radimo, po vrsti.</p>
-      <div class="note"><div><b>Tisak i izrada na upit</b><p>Mi radimo dizajn i pripremu za tisak. Tisak, izradu ambalaže, folije za vozila i ostalo možete zatražiti uz upit. Provjerimo to kod partnerskih tiskara i izvođača pa vam javimo cijenu i rok.</p></div></div>
+      <div class="note"><div><b>Tisak i izrada</b><p>Uz dizajn možemo preuzeti i izradu. Većinu materijala radimo kroz vlastita rješenja, a za posebne tehnike, poput folija za vozila ili svjetlećih natpisa, surađujemo s provjerenim partnerima. Želite li samo dizajn, dobivate datoteke spremne za bilo koju tiskaru.</p></div></div>
       <div class="chips" role="list">
         <button class="chip" type="button" data-jump="g1">Identitet i brand</button>
         <button class="chip" type="button" data-jump="g2">Tisak</button>
@@ -1104,32 +1103,27 @@ window.IMG = {"c-desk-stick": "data:image/webp;base64,UklGRsJuAABXRUJQVlA4ILZuAA
   lb.addEventListener("touchstart", function(e){ if (!e.target.closest(".lb__pano")) tx0 = e.touches[0].clientX; }, {passive:true});
   lb.addEventListener("touchend", function(e){ if (tx0 === null) return; var dx = e.changedTouches[0].clientX - tx0; tx0 = null; if (Math.abs(dx) > 50 && items.length > 1) step(dx < 0 ? 1 : -1); });
 
-  /* ---- panorama: pomiče se dok skrolate, može se povući, klik uvećava ---- */
-  var pano = document.querySelector("[data-pano]");
-  var pimg = pano ? pano.querySelector("img") : null, drag = 0, cur = 0, down = null, moved = 0;
+  /* ---- panorama: sama klizi dok skrolate; prstom ili mišem se pomiče lijevo-desno ---- */
+  var pano = document.querySelector("[data-pano]"), manual = false, down = null, lastAuto = 0;
   function panoLayout(){
-    if (!pano || !pano.offsetParent) return;
-    var W = pimg.getBoundingClientRect().width, B = pano.clientWidth, max = Math.max(0, W - B);
+    if (!pano || manual || !pano.offsetParent) return;
+    var max = pano.scrollWidth - pano.clientWidth; if (max <= 0) return;
     var r = pano.getBoundingClientRect(), vh = window.innerHeight;
-    var p = reduce ? 0.5 : Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));
-    var x = -p * max + drag;
-    if (x > 0){ drag -= x; x = 0; } if (x < -max){ drag += (-max - x); x = -max; }
-    cur = x; pimg.style.transform = "translate3d(" + x + "px,0,0)";
+    var p = reduce ? 0.3 : Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));
+    pano.scrollLeft = p * max; lastAuto = pano.scrollLeft;
   }
   if (pano){
-    pano.addEventListener("pointerdown", function(e){ down = e.clientX; moved = 0; pano.classList.add("grabbing"); try{ pano.setPointerCapture(e.pointerId); }catch(err){} });
-    pano.addEventListener("pointermove", function(e){ if (down === null) return; var dx = e.clientX - down; down = e.clientX; moved += Math.abs(dx); drag += dx; panoLayout(); });
-    var up = function(e){
-      if (down === null) return; down = null; pano.classList.remove("grabbing");
-      if (moved < 6 && e.type === "pointerup"){
-        var r = pano.getBoundingClientRect(), sc = r.height / pimg.naturalHeight;
-        var cx = (e.clientX - r.left - cur) / sc;
-        var f = document.createElement("figure"); f.setAttribute("data-full", "w-pano"); f.setAttribute("data-cx", Math.round(cx));
-        f.setAttribute("data-cap", "Primjeri web stranica i aplikacija. Povucite lijevo-desno.");
-        open([f], 0);
-      }
-    };
+    ["touchstart","wheel"].forEach(function(ev){ pano.addEventListener(ev, function(){ manual = true; }, {passive:true}); });
+    pano.addEventListener("scroll", function(){ if (Math.abs(pano.scrollLeft - lastAuto) > 2) manual = true; }, {passive:true});
+    pano.addEventListener("pointerdown", function(e){
+      if (e.pointerType !== "mouse") return;
+      manual = true; down = e.clientX; pano.classList.add("grabbing");
+      try{ pano.setPointerCapture(e.pointerId); }catch(err){}
+    });
+    pano.addEventListener("pointermove", function(e){ if (down === null) return; pano.scrollLeft -= (e.clientX - down); down = e.clientX; });
+    var up = function(){ down = null; pano.classList.remove("grabbing"); };
     pano.addEventListener("pointerup", up); pano.addEventListener("pointercancel", up);
+    var pimg = pano.querySelector("img");
     if (pimg.complete) panoLayout(); else pimg.addEventListener("load", panoLayout);
   }
 
