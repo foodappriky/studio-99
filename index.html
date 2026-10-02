@@ -4,6 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Studio 99</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#DEDDD6">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Studio 99">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="description" content="Studio 99 — grafički dizajn, vizualni identitet, web stranice i digitalna rješenja.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -250,6 +260,17 @@ figure{margin:0}
 @media(max-width:700px){.svc__row{grid-template-columns:1fr 1fr}.svc__row .shot:first-child{grid-column:1/-1}}
 .svc__foot{margin-top:22px;display:flex;justify-content:flex-start}
 
+/* popis usluga — grupirano, bez kvačica */
+.svlist{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(18px,2.6vw,36px);
+  margin-top:clamp(24px,3vw,34px);padding-top:clamp(20px,2.6vw,28px);border-top:1px solid var(--line-2)}
+@media(max-width:900px){.svlist{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.svlist h4{font-family:var(--f-mono);font-size:.7rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--acc-c,var(--red));margin-bottom:8px}
+.svlist li{font-family:var(--f-display);font-weight:700;font-size:clamp(1.02rem,1.35vw,1.2rem);letter-spacing:-.015em;line-height:1.25;
+  color:var(--ink-deep);padding:10px 0;border-bottom:1px solid var(--line);transition:color .25s,padding-left .3s}
+.svlist li:last-child{border-bottom:0}
+.svlist li:hover{color:var(--acc-c,var(--red));padding-left:6px}
+@media(max-width:480px){.svlist{gap:18px 16px}.svlist li{font-size:.98rem;padding:8px 0}}
 /* ==================== ZAŠTO ==================== */
 .why{padding:clamp(40px,6vw,80px) 0 clamp(70px,9vw,120px)}
 .why__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,2vw,22px)}
@@ -383,7 +404,7 @@ footer{background:var(--ink-deep);color:var(--on-dark);padding:clamp(54px,7vw,90
 
 /* ==================== SLIKE: uvećanje, paralaksa, nagib ==================== */
 .zoom{cursor:zoom-in}
-.zoom::after{content:"";position:absolute;top:10px;right:10px;width:32px;height:32px;border-radius:50%;
+.zoom::after{display:none;content:"";position:absolute;top:10px;right:10px;width:32px;height:32px;border-radius:50%;
   background:rgba(38,38,38,.62) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='6'/%3E%3Cpath d='M20 20l-4.5-4.5M11 8.5v5M8.5 11h5'/%3E%3C/svg%3E") center/18px no-repeat;
   opacity:0;transform:scale(.85);transition:opacity .25s,transform .25s;backdrop-filter:blur(4px)}
 .zoom:hover::after,.zoom:focus-visible::after{opacity:1;transform:none}
@@ -405,14 +426,12 @@ footer{background:var(--ink-deep);color:var(--on-dark);padding:clamp(54px,7vw,90
 .svc--print .checks{margin-top:26px}
 
 /* panorama uređaja */
-.pano{position:relative;overflow:hidden;border-radius:14px;height:clamp(230px,30vw,400px);background:#BFAE96;
-  cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none;
+.pano{position:relative;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-x:contain;border-radius:14px;height:clamp(230px,30vw,400px);background:#BFAE96;
+  cursor:grab;touch-action:pan-x pan-y;user-select:none;-webkit-user-select:none;
   box-shadow:inset 0 0 0 1px rgba(38,38,38,.08),0 14px 30px -20px rgba(38,38,38,.6)}
 .pano.grabbing{cursor:grabbing}
-.pano img{position:absolute;left:0;top:0;height:100%;width:auto;max-width:none;will-change:transform;pointer-events:none}
-.pano::before,.pano::after{content:"";position:absolute;top:0;bottom:0;width:60px;z-index:1;pointer-events:none}
-.pano::before{left:0;background:linear-gradient(90deg,rgba(241,240,235,.5),transparent)}
-.pano::after{right:0;background:linear-gradient(-90deg,rgba(241,240,235,.5),transparent)}
+.pano::-webkit-scrollbar{display:none}
+.pano img{display:block;height:100%;width:auto;max-width:none;pointer-events:none}
 .pano__hint{position:absolute;z-index:2;right:12px;bottom:12px;font-family:var(--f-mono);font-size:.62rem;letter-spacing:.12em;
   text-transform:uppercase;color:#fff;background:rgba(38,38,38,.7);padding:7px 10px;border-radius:7px;backdrop-filter:blur(4px)}
 
@@ -513,6 +532,102 @@ footer{background:var(--ink-deep);color:var(--on-dark);padding:clamp(54px,7vw,90
   .hosp__zoom{top:12px;right:12px}
 }
 
+
+/* ==================== PANEL #/upiti (samo za vlasnika) ==================== */
+body.adm-on>*:not(#adm):not(script):not(.lb){display:none!important}
+#adm{min-height:100vh;background:var(--paper);font-size:15.5px}
+#adm .a-pin{min-height:100vh;display:grid;place-items:center;padding:24px 16px}
+#adm .a-pin__card{width:100%;max-width:360px;background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--sh-2);
+  padding:28px;display:flex;flex-direction:column;gap:14px;text-align:center}
+#adm .a-pin__logo{height:80px;display:flex;justify-content:center}
+#adm #aPinIn{font-family:var(--f-mono);font-size:1.6rem;letter-spacing:.5em;text-align:center;padding:14px;border:1px solid var(--line-2);
+  border-radius:12px;background:#fff;width:100%}
+#adm #aPinIn:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 4px rgba(137,36,36,.14)}
+#adm .a-pin label.chk{display:flex;gap:8px;align-items:center;justify-content:center;font-size:.86rem;color:var(--ink-soft)}
+#adm .a-pin label.chk input{width:18px;height:18px;accent-color:var(--red)}
+#adm .a-msg{min-height:1.2em;font-size:.9rem;font-weight:600;color:var(--red)}
+#adm .a-top{position:sticky;top:0;z-index:20;background:rgba(222,221,214,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+  padding:calc(10px + env(safe-area-inset-top,0px)) 16px 10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+#adm .a-top__logo{height:38px;display:flex}
+#adm .a-top h1{font-size:1.25rem}
+#adm .a-cnt{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red)}
+#adm .a-sp{flex:1}
+#adm input[type=search],#adm input[type=text],#adm input[type=number],#adm select,#adm textarea{width:100%;background:#fff;border:1px solid var(--line-2);
+  border-radius:10px;padding:10px 12px;font:inherit;font-size:.95rem;color:var(--ink)}
+#adm textarea{resize:vertical;min-height:110px;line-height:1.55}
+#adm input:focus,#adm select:focus,#adm textarea:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3px rgba(137,36,36,.14)}
+#adm .a-search{max-width:260px}
+@media(max-width:700px){#adm .a-search{order:5;max-width:none;flex-basis:100%}}
+#adm .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;border-radius:10px;border:1px solid var(--line-2);
+  background:var(--card);padding:10px 14px;font-weight:700;font-size:.9rem;color:var(--ink);text-decoration:none;white-space:nowrap}
+#adm .b:hover{border-color:var(--ink)}
+#adm .b:disabled{opacity:.55}
+#adm .b--red{background:linear-gradient(180deg,#9A2B2B,var(--red) 55%,var(--red-deep));border-color:transparent;color:#fff}
+#adm .b--ink{background:var(--ink);border-color:transparent;color:#fff}
+#adm .b--green{background:#2E7D32;border-color:transparent;color:#fff}
+#adm .b--sm{padding:7px 11px;font-size:.82rem;border-radius:8px}
+#adm .b--danger{color:#9C2A1F;border-color:rgba(156,42,31,.35)}
+#adm .a-app{display:grid;grid-template-columns:minmax(290px,370px) minmax(0,1fr);min-height:calc(100vh - 60px)}
+#adm .a-side{min-width:0;border-right:1px solid var(--line);display:flex;flex-direction:column;position:sticky;top:61px;height:calc(100vh - 61px);overflow-y:auto}
+#adm .a-tabs{display:flex;gap:6px;padding:12px 12px 10px;overflow-x:auto;scrollbar-width:none}
+#adm .a-tabs::-webkit-scrollbar{display:none}
+#adm .a-tab{flex:none;cursor:pointer;border:1px solid var(--line-2);background:var(--card);border-radius:999px;padding:6px 11px;font-size:.8rem;font-weight:700}
+#adm .a-tab b{font-family:var(--f-mono);font-weight:500;margin-left:4px;color:var(--muted)}
+#adm .a-tab[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+#adm .a-tab[aria-pressed="true"] b{color:#ddd}
+#adm .a-list{padding:0 12px 16px;display:flex;flex-direction:column;gap:8px}
+#adm .a-item{display:block;width:100%;text-align:left;cursor:pointer;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 13px;font:inherit;color:inherit}
+#adm .a-item[aria-current="true"]{border-color:var(--red);box-shadow:0 0 0 2px rgba(137,36,36,.15)}
+#adm .a-row{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+#adm .a-name{font-weight:700;color:var(--ink-deep);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#adm .a-item.unread .a-name::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--red);margin-right:7px;vertical-align:1px}
+#adm .a-date{flex:none;font-size:.75rem;color:var(--muted);font-variant-numeric:tabular-nums}
+#adm .a-vr{font-size:.82rem;color:var(--ink-soft);margin-top:2px}
+#adm .a-snip{font-size:.85rem;color:var(--muted);margin-top:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+#adm .a-foot{display:flex;align-items:center;gap:8px;margin-top:8px}
+#adm .chip{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:700;padding:3px 8px;border-radius:999px;background:var(--paper-hi);border:1px solid var(--line)}
+#adm .chip::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--c,#75746E)}
+#adm .a-eur{font-family:var(--f-mono);font-size:.75rem;color:var(--ink-soft)}
+#adm .a-empty{padding:30px 10px;text-align:center;color:var(--muted)}
+#adm .a-main{min-width:0;padding:20px clamp(16px,3vw,36px) 60px}
+#adm .a-ph{display:grid;place-items:center;min-height:50vh;color:var(--muted)}
+#adm .a-det{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+#adm .a-back{display:none;align-self:flex-start}
+#adm .a-dh{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:flex-start}
+#adm .a-dh h2{font-size:clamp(1.4rem,2.6vw,2rem)}
+#adm .a-dh select{width:auto;min-width:190px}
+#adm .a-sub{color:var(--ink-soft);margin-top:4px}
+#adm .a-acts{display:flex;flex-wrap:wrap;gap:8px}
+#adm .a-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+#adm .a-card h3{font-family:var(--f-mono);font-weight:500;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+#adm .a-kv{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0}
+@media(max-width:820px){#adm .a-kv{grid-template-columns:repeat(2,minmax(0,1fr))}}
+#adm .a-kv dt{font-size:.75rem;color:var(--muted)}
+#adm .a-kv dd{margin:2px 0 0;font-weight:700;overflow-wrap:anywhere}
+#adm .a-opis{white-space:pre-wrap;font-size:1rem;line-height:1.6;color:var(--ink-deep)}
+#adm .a-priv img{max-height:240px;max-width:100%;border-radius:10px;border:1px solid var(--line);margin-top:10px;display:block}
+#adm .a-two{display:grid;grid-template-columns:170px minmax(0,1fr);gap:12px}
+@media(max-width:620px){#adm .a-two{grid-template-columns:1fr}}
+#adm .a-lbl{display:block;font-size:.8rem;font-weight:700;color:var(--ink-soft);margin-bottom:6px}
+#adm .a-msgc{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-top:8px}
+#adm .a-msgc__h{display:flex;justify-content:space-between;gap:10px;font-size:.78rem;color:var(--muted);margin-bottom:6px}
+#adm .a-msgc__h b{color:var(--ink-deep)}
+#adm .a-msgc__t{white-space:pre-wrap;font-size:.92rem}
+#adm .a-compose{display:flex;flex-direction:column;gap:10px}
+#adm .a-tpl{display:flex;flex-wrap:wrap;gap:6px}
+#adm .a-send{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center}
+#adm .a-send select{width:auto}
+#adm .a-toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));translate:-50% 0;background:var(--ink-deep);color:#fff;
+  padding:10px 16px;border-radius:10px;font-size:.9rem;box-shadow:var(--sh-2);z-index:60}
+@media(max-width:860px){
+  #adm .a-app{grid-template-columns:minmax(0,1fr)}
+  #adm .a-side{border-right:0;position:static;height:auto;overflow:visible}
+  #adm .a-main{display:none;padding-top:12px}
+  #adm.open .a-side{display:none}
+  #adm.open .a-main{display:block}
+  #adm .a-back{display:inline-flex}
+}
+
 /* ==================== POJAVLJIVANJE ==================== */
 .rv{transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
 .js .rv:not(.in){opacity:.35;transform:translateY(22px)}
@@ -608,7 +723,7 @@ footer{background:var(--ink-deep);color:var(--on-dark);padding:clamp(54px,7vw,90
           <p class="eyebrow">Usluge</p>
           <h2>Što radimo?</h2>
         </div>
-        <p>Primjeri pokazuju kako jedan brend izgleda na papiru, ambalaži, odjeći, vozilu i ekranu. Kliknite sliku za veći prikaz.</p>
+        <p>Primjeri pokazuju kako jedan brend izgleda na papiru, ambalaži, odjeći, vozilu i ekranu.</p>
       </div>
 
       <article class="svc svc--print rv" data-gallery>
@@ -626,12 +741,8 @@ footer{background:var(--ink-deep);color:var(--on-dark);padding:clamp(54px,7vw,90
               <figure class="shot zoom " data-full="g-van"><img data-img="g-van" alt="Dostavno vozilo s grafikom preko cijele karoserije" style="object-position:62% 50%"><figcaption>Vozila</figcaption></figure>
           </div>
         </div>
-        <ul class="checks">
-            <li>Logo dizajn</li><li>Vizualni identitet</li><li>Branding</li><li>Brand book</li><li>Vizitke</li><li>Flyeri i letci</li><li>Plakati</li>
-            <li>Brošure</li><li>Katalozi</li><li>Cjenici</li><li>Jelovnici</li><li>Pozivnice</li><li>Zahvalnice</li><li>Ambalaža i kutije</li>
-            <li>Etikete i naljepnice</li><li>Majice i radna odjeća</li><li>Merch i promo materijali</li><li>Izlozi</li><li>Natpisi i signalizacija</li><li>Billboardi i roll-upovi</li><li>Grafike za vozila</li>
-          </ul>
-        <div class="note"><div><b>Tisak i izrada na upit</b><p>Nemamo vlastitu tiskaru. Ako uz dizajn trebate i tisak ili izradu, navedite to u upitu. Provjerimo mogućnosti kod partnerskih tiskara i javimo vam ponudu.</p></div></div>
+        <div class="svlist"><div class="svlist__g"><h4>Identitet</h4><ul><li>Logo dizajn</li><li>Vizualni identitet</li><li>Branding</li><li>Brand book</li></ul></div><div class="svlist__g"><h4>Tisak</h4><ul><li>Vizitke</li><li>Letci i flyeri</li><li>Plakati</li><li>Brošure i katalozi</li><li>Cjenici i jelovnici</li><li>Pozivnice i zahvalnice</li></ul></div><div class="svlist__g"><h4>Ambalaža i promo</h4><ul><li>Ambalaža i kutije</li><li>Etikete i naljepnice</li><li>Majice i radna odjeća</li><li>Merch i promo materijali</li></ul></div><div class="svlist__g"><h4>Prostor i vozila</h4><ul><li>Izlozi</li><li>Natpisi i signalizacija</li><li>Billboardi i roll-upovi</li><li>Grafike za vozila</li></ul></div></div>
+        <div class="note"><div><b>Tisak i izrada</b><p>Većinu tiskanih materijala i proizvoda izrađujemo kroz vlastita rješenja, a ono što traži posebnu tehnologiju radimo s provjerenim partnerima. Ako vam treba samo dizajn, dobivate datoteke pripremljene za tisak koje možete odnijeti u bilo koju tiskaru.</p></div></div>
       </article>
 
       <article class="svc svc--web rv">
@@ -641,13 +752,8 @@ footer{background:var(--ink-deep);color:var(--on-dark);padding:clamp(54px,7vw,90
         </div>
         <div class="pano" data-pano role="img" aria-label="Primjeri web stranica i aplikacija na laptopima, tabletima i mobitelima">
           <img data-img="w-pano" alt="" draggable="false">
-          <span class="pano__hint">↔ Povucite ili kliknite za uvećanje</span>
         </div>
-        <ul class="checks">
-          <li>Prezentacijske web stranice</li><li>Poslovne web stranice</li><li>Landing page</li><li>Stranice za restorane i pizzerije</li><li>Stranice za hotele i apartmane</li><li>Stranice za salone i obrte</li>
-          <li>Portfolio stranice</li><li>Blogovi i news portali</li><li>Webshopovi</li><li>Online katalozi</li><li>Rezervacije i booking</li><li>Online naručivanje hrane</li>
-          <li>Korisnički računi i portali</li><li>Administracijska sučelja</li><li>Web aplikacije</li><li>Digitalni proizvodi</li><li>UI/UX dizajn</li><li>Redizajn postojećih stranica</li>
-        </ul>
+        <div class="svlist"><div class="svlist__g"><h4>Web stranice</h4><ul><li>Prezentacijske i poslovne</li><li>Landing page</li><li>Restorani i pizzerije</li><li>Hoteli i apartmani</li><li>Saloni i obrti</li><li>Portfolio, blog i news</li></ul></div><div class="svlist__g"><h4>Prodaja i rezervacije</h4><ul><li>Webshopovi</li><li>Online katalozi</li><li>Rezervacije i booking</li><li>Online naručivanje hrane</li></ul></div><div class="svlist__g"><h4>Sustavi i aplikacije</h4><ul><li>Korisnički računi i portali</li><li>Administracijska sučelja</li><li>Web aplikacije</li><li>Digitalni proizvodi</li></ul></div><div class="svlist__g"><h4>Dizajn i podrška</h4><ul><li>UI/UX dizajn</li><li>Redizajn postojećih stranica</li><li>Responzivni dizajn</li><li>Održavanje i nadogradnje</li></ul></div></div>
       </article>
     </div>
   </section>
@@ -655,7 +761,6 @@ footer{background:var(--ink-deep);color:var(--on-dark);padding:clamp(54px,7vw,90
   <!-- ============ UGOSTITELJI ============ -->
   <section class="hosp home" data-gallery>
     <div class="hosp__bg" data-bg="g-wall" aria-hidden="true"></div>
-    <button class="zoom hosp__zoom" type="button" data-full="g-wall" data-cap="Komplet za ugostitelje: viseći banner, svjetleća tabla, neon, jelovnici, kožne mape i roll-up banneri.">Uvećaj sliku</button>
     <div class="wrap hosp__in">
       <div class="hosp__card rv">
         <p class="eyebrow">Za ugostitelje</p>
@@ -688,7 +793,7 @@ footer{background:var(--ink-deep);color:var(--on-dark);padding:clamp(54px,7vw,90
       <p class="eyebrow">Studio 99 · grafički dizajn</p>
       <h1>Grafički dizajn</h1>
       <p class="subhead__lead">Sve što vaš brend treba da izgleda profesionalno, od logotipa i vizitki do ambalaže, izloga, društvenih mreža i promotivnih materijala. Niže je popis onoga što radimo, po vrsti.</p>
-      <div class="note"><div><b>Tisak i izrada na upit</b><p>Mi radimo dizajn i pripremu za tisak. Tisak, izradu ambalaže, folije za vozila i ostalo možete zatražiti uz upit. Provjerimo to kod partnerskih tiskara i izvođača pa vam javimo cijenu i rok.</p></div></div>
+      <div class="note"><div><b>Tisak i izrada</b><p>Uz dizajn možemo preuzeti i izradu. Većinu materijala radimo kroz vlastita rješenja, a za posebne tehnike, poput folija za vozila ili svjetlećih natpisa, surađujemo s provjerenim partnerima. Želite li samo dizajn, dobivate datoteke spremne za bilo koju tiskaru.</p></div></div>
       <div class="chips" role="list">
         <button class="chip" type="button" data-jump="g1">Identitet i brand</button>
         <button class="chip" type="button" data-jump="g2">Tisak</button>
@@ -852,9 +957,9 @@ footer{background:var(--ink-deep);color:var(--on-dark);padding:clamp(54px,7vw,90
       <p class="lead">Opišite nam ideju svojim riječima. Na vaš upit odgovaramo u roku od 24 sata.</p>
     </div>
     <div class="formwrap">
-      <iframe name="fs_frame" id="fs_frame" title="Slanje upita" hidden></iframe>
       <form id="inq" name="upit" method="POST" enctype="multipart/form-data" novalidate>
         <div class="fhead"><b>Obrazac za upit</b><span>Bez obveze</span></div>
+        <p hidden><label>Ostavite prazno <input name="web" tabindex="-1" autocomplete="off"></label><input type="hidden" name="t" id="f_t"></p>
         <div class="frow">
           <div class="field"><label for="ime">Ime i prezime <i>*</i></label>
             <input id="ime" name="ime" type="text" autocomplete="name" required></div>
@@ -909,6 +1014,43 @@ footer{background:var(--ink-deep);color:var(--on-dark);padding:clamp(54px,7vw,90
     </div>
   </div>
 </section>
+
+<!-- ============ PANEL ZA UPITE (#/upiti) ============ -->
+<div id="adm" hidden>
+  <section class="a-pin" id="aPin">
+    <form class="a-pin__card" id="aPinForm">
+      <div class="a-pin__logo"><svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1201 888" role="img" aria-label="Studio 99"><path class="lg-c" fill="#333333" fill-rule="evenodd" d="M1,40 0,41 0,881 1,882 21,882 22,881 22,41 21,40ZM196,47 194,49 194,89 191,91 191,95 202,107 211,123 216,140 217,162 211,187 202,203 191,215 191,219 194,221 194,260 191,263 192,264 212,264 214,266 214,297 212,299 192,299 191,300 194,303 194,346 191,347 191,351 202,365 208,377 212,390 214,402 214,455 212,457 192,457 191,458 194,461 194,491 191,493 191,496 198,501 206,510 213,524 217,543 217,563 218,564 220,561 222,561 235,568 264,579 287,585 312,589 322,589 323,590 357,589 381,584 390,580 393,581 221,782 215,788 212,787 212,794 214,798 217,813 217,830 213,850 205,867 205,873 208,871 384,871 586,631 619,585 654,532 675,547 710,566 729,574 766,585 791,589 823,590 853,586 871,579 873,581 624,871 863,871 1063,634 1099,584 1139,522 1152,499 1169,465 1176,448 1188,408 1197,353 1198,327 1199,326 1199,293 1200,292 1198,257 1191,220 1181,190 1165,158 1142,125 1129,110 1096,79 1072,61 1039,41 1004,25 971,14 931,5 897,1 884,1 883,0 822,1 781,7 750,15 716,27 677,46 644,67 624,84 622,84 604,69 572,48 539,31 522,24 495,15 467,8 437,3 407,0 354,0 319,4 293,9 247,23 223,33ZM852,160 883,160 909,165 931,174 948,185 968,204 982,224 993,250 997,270 998,300 995,322 989,342 977,365 967,378 950,395 938,404 914,416 885,423 862,424 829,419 808,411 787,398 766,378 752,358 745,344 740,329 736,308 735,287 736,286 737,265 740,252 746,235 761,210 785,186 802,175 826,165ZM359,162 373,160 404,160 417,162 441,169 462,180 478,193 497,215 509,237 516,260 519,288 517,315 510,341 497,366 485,381 474,392 460,403 442,413 417,421 394,424 382,424 358,421 333,413 316,404 296,388 279,368 272,357 265,342 258,318 256,302 256,278 258,263 265,239 274,221 284,207 303,188 311,182 333,170Z"/><path class="lg-r" fill="#892424" fill-rule="evenodd" d="M214,788 206,774 197,765 186,759 170,755 161,755 148,758 138,764 125,778 100,827 93,833 85,833 82,832 75,825 73,819 74,800 84,776 54,761 49,767 45,775 39,794 37,807 38,827 41,837 48,850 61,863 75,870 85,872 97,872 111,867 117,863 126,854 133,844 147,814 157,801 161,799 173,800 180,807 183,818 183,829 179,842 170,859 164,866 164,868 196,887 204,877 213,859 218,840 219,810ZM40,635 40,756 41,757 74,757 75,756 75,717 77,715 215,715 216,714 216,677 215,676 77,676 75,674 75,635 74,634 41,634ZM40,485 40,522 41,523 151,523 168,527 176,534 180,543 181,551 179,565 176,570 170,576 160,580 153,581 41,581 40,582 40,620 41,621 168,620 181,617 192,612 198,608 210,594 216,580 219,564 218,533 215,521 208,507 201,499 190,491 166,484 41,484ZM53,361 46,375 41,394 41,404 40,405 40,458 41,459 215,459 216,458 216,399 210,374 204,362 197,352 183,338 171,330 154,323 137,320 119,320 99,324 82,332 71,340 62,349ZM75,410 77,398 83,385 96,372 113,364 138,363 149,366 159,371 170,381 175,388 179,397 181,406 181,418 179,420 77,420 75,418ZM40,263 40,300 41,301 215,301 216,300 216,263 215,262 41,262ZM112,67 91,73 78,80 66,89 51,106 43,121 38,139 37,162 39,175 44,190 55,208 66,220 86,234 102,240 118,243 139,243 151,241 167,236 183,227 193,219 208,200 213,190 218,173 219,165 218,137 213,120 204,104 193,91 179,80 163,72 144,67 133,67 132,66ZM91,120 101,114 117,109 139,109 156,114 167,121 175,130 179,138 181,146 180,167 176,177 171,184 159,194 141,200 116,200 103,196 91,189 80,177 75,162 75,147 78,136 82,129Z"/></svg></div>
+      <h1>Upiti</h1>
+      <input type="password" id="aPinIn" inputmode="numeric" autocomplete="off" placeholder="••••" aria-label="Šifra">
+      <label class="chk"><input type="checkbox" id="aRemember" checked> Zapamti na ovom uređaju</label>
+      <button class="b b--red" type="submit">Uđi</button>
+      <p class="a-msg" id="aPinMsg" role="status"></p>
+    </form>
+  </section>
+  <div id="aApp" hidden>
+    <header class="a-top">
+      <div class="a-top__logo"><svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1201 888" role="img" aria-label="Studio 99"><path class="lg-c" fill="#333333" fill-rule="evenodd" d="M1,40 0,41 0,881 1,882 21,882 22,881 22,41 21,40ZM196,47 194,49 194,89 191,91 191,95 202,107 211,123 216,140 217,162 211,187 202,203 191,215 191,219 194,221 194,260 191,263 192,264 212,264 214,266 214,297 212,299 192,299 191,300 194,303 194,346 191,347 191,351 202,365 208,377 212,390 214,402 214,455 212,457 192,457 191,458 194,461 194,491 191,493 191,496 198,501 206,510 213,524 217,543 217,563 218,564 220,561 222,561 235,568 264,579 287,585 312,589 322,589 323,590 357,589 381,584 390,580 393,581 221,782 215,788 212,787 212,794 214,798 217,813 217,830 213,850 205,867 205,873 208,871 384,871 586,631 619,585 654,532 675,547 710,566 729,574 766,585 791,589 823,590 853,586 871,579 873,581 624,871 863,871 1063,634 1099,584 1139,522 1152,499 1169,465 1176,448 1188,408 1197,353 1198,327 1199,326 1199,293 1200,292 1198,257 1191,220 1181,190 1165,158 1142,125 1129,110 1096,79 1072,61 1039,41 1004,25 971,14 931,5 897,1 884,1 883,0 822,1 781,7 750,15 716,27 677,46 644,67 624,84 622,84 604,69 572,48 539,31 522,24 495,15 467,8 437,3 407,0 354,0 319,4 293,9 247,23 223,33ZM852,160 883,160 909,165 931,174 948,185 968,204 982,224 993,250 997,270 998,300 995,322 989,342 977,365 967,378 950,395 938,404 914,416 885,423 862,424 829,419 808,411 787,398 766,378 752,358 745,344 740,329 736,308 735,287 736,286 737,265 740,252 746,235 761,210 785,186 802,175 826,165ZM359,162 373,160 404,160 417,162 441,169 462,180 478,193 497,215 509,237 516,260 519,288 517,315 510,341 497,366 485,381 474,392 460,403 442,413 417,421 394,424 382,424 358,421 333,413 316,404 296,388 279,368 272,357 265,342 258,318 256,302 256,278 258,263 265,239 274,221 284,207 303,188 311,182 333,170Z"/><path class="lg-r" fill="#892424" fill-rule="evenodd" d="M214,788 206,774 197,765 186,759 170,755 161,755 148,758 138,764 125,778 100,827 93,833 85,833 82,832 75,825 73,819 74,800 84,776 54,761 49,767 45,775 39,794 37,807 38,827 41,837 48,850 61,863 75,870 85,872 97,872 111,867 117,863 126,854 133,844 147,814 157,801 161,799 173,800 180,807 183,818 183,829 179,842 170,859 164,866 164,868 196,887 204,877 213,859 218,840 219,810ZM40,635 40,756 41,757 74,757 75,756 75,717 77,715 215,715 216,714 216,677 215,676 77,676 75,674 75,635 74,634 41,634ZM40,485 40,522 41,523 151,523 168,527 176,534 180,543 181,551 179,565 176,570 170,576 160,580 153,581 41,581 40,582 40,620 41,621 168,620 181,617 192,612 198,608 210,594 216,580 219,564 218,533 215,521 208,507 201,499 190,491 166,484 41,484ZM53,361 46,375 41,394 41,404 40,405 40,458 41,459 215,459 216,458 216,399 210,374 204,362 197,352 183,338 171,330 154,323 137,320 119,320 99,324 82,332 71,340 62,349ZM75,410 77,398 83,385 96,372 113,364 138,363 149,366 159,371 170,381 175,388 179,397 181,406 181,418 179,420 77,420 75,418ZM40,263 40,300 41,301 215,301 216,300 216,263 215,262 41,262ZM112,67 91,73 78,80 66,89 51,106 43,121 38,139 37,162 39,175 44,190 55,208 66,220 86,234 102,240 118,243 139,243 151,241 167,236 183,227 193,219 208,200 213,190 218,173 219,165 218,137 213,120 204,104 193,91 179,80 163,72 144,67 133,67 132,66ZM91,120 101,114 117,109 139,109 156,114 167,121 175,130 179,138 181,146 180,167 176,177 171,184 159,194 141,200 116,200 103,196 91,189 80,177 75,162 75,147 78,136 82,129Z"/></svg></div>
+      <h1>Upiti</h1>
+      <span class="a-cnt" id="aCnt"></span>
+      <span class="a-sp"></span>
+      <input type="search" class="a-search" id="aQ" placeholder="Traži ime, e-mail, opis…" aria-label="Traži upite">
+      <button class="b b--sm" type="button" id="aInstall" hidden>Dodaj na zaslon</button>
+      <button class="b b--sm" type="button" id="aRefresh">Osvježi</button>
+      <button class="b b--sm" type="button" id="aOut">Izađi</button>
+    </header>
+    <div class="a-app">
+      <aside class="a-side">
+        <div class="a-tabs" id="aTabs" role="toolbar" aria-label="Filtriraj po statusu"></div>
+        <div class="a-list" id="aList"></div>
+      </aside>
+      <section class="a-main" id="aMain">
+        <div class="a-ph" id="aPh"><p>Odaberite upit s popisa.</p></div>
+        <article class="a-det" id="aDet" hidden></article>
+      </section>
+    </div>
+  </div>
+  <div class="a-toast" id="aToast" hidden role="status"></div>
+</div>
 
 <div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Uvećana slika">
   <button class="lb__x" type="button" aria-label="Zatvori">×</button>
@@ -1104,32 +1246,27 @@ window.IMG = {"c-desk-stick": "data:image/webp;base64,UklGRsJuAABXRUJQVlA4ILZuAA
   lb.addEventListener("touchstart", function(e){ if (!e.target.closest(".lb__pano")) tx0 = e.touches[0].clientX; }, {passive:true});
   lb.addEventListener("touchend", function(e){ if (tx0 === null) return; var dx = e.changedTouches[0].clientX - tx0; tx0 = null; if (Math.abs(dx) > 50 && items.length > 1) step(dx < 0 ? 1 : -1); });
 
-  /* ---- panorama: pomiče se dok skrolate, može se povući, klik uvećava ---- */
-  var pano = document.querySelector("[data-pano]");
-  var pimg = pano ? pano.querySelector("img") : null, drag = 0, cur = 0, down = null, moved = 0;
+  /* ---- panorama: sama klizi dok skrolate; prstom ili mišem se pomiče lijevo-desno ---- */
+  var pano = document.querySelector("[data-pano]"), manual = false, down = null, lastAuto = 0;
   function panoLayout(){
-    if (!pano || !pano.offsetParent) return;
-    var W = pimg.getBoundingClientRect().width, B = pano.clientWidth, max = Math.max(0, W - B);
+    if (!pano || manual || !pano.offsetParent) return;
+    var max = pano.scrollWidth - pano.clientWidth; if (max <= 0) return;
     var r = pano.getBoundingClientRect(), vh = window.innerHeight;
-    var p = reduce ? 0.5 : Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));
-    var x = -p * max + drag;
-    if (x > 0){ drag -= x; x = 0; } if (x < -max){ drag += (-max - x); x = -max; }
-    cur = x; pimg.style.transform = "translate3d(" + x + "px,0,0)";
+    var p = reduce ? 0.3 : Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));
+    pano.scrollLeft = p * max; lastAuto = pano.scrollLeft;
   }
   if (pano){
-    pano.addEventListener("pointerdown", function(e){ down = e.clientX; moved = 0; pano.classList.add("grabbing"); try{ pano.setPointerCapture(e.pointerId); }catch(err){} });
-    pano.addEventListener("pointermove", function(e){ if (down === null) return; var dx = e.clientX - down; down = e.clientX; moved += Math.abs(dx); drag += dx; panoLayout(); });
-    var up = function(e){
-      if (down === null) return; down = null; pano.classList.remove("grabbing");
-      if (moved < 6 && e.type === "pointerup"){
-        var r = pano.getBoundingClientRect(), sc = r.height / pimg.naturalHeight;
-        var cx = (e.clientX - r.left - cur) / sc;
-        var f = document.createElement("figure"); f.setAttribute("data-full", "w-pano"); f.setAttribute("data-cx", Math.round(cx));
-        f.setAttribute("data-cap", "Primjeri web stranica i aplikacija. Povucite lijevo-desno.");
-        open([f], 0);
-      }
-    };
+    ["touchstart","wheel"].forEach(function(ev){ pano.addEventListener(ev, function(){ manual = true; }, {passive:true}); });
+    pano.addEventListener("scroll", function(){ if (Math.abs(pano.scrollLeft - lastAuto) > 2) manual = true; }, {passive:true});
+    pano.addEventListener("pointerdown", function(e){
+      if (e.pointerType !== "mouse") return;
+      manual = true; down = e.clientX; pano.classList.add("grabbing");
+      try{ pano.setPointerCapture(e.pointerId); }catch(err){}
+    });
+    pano.addEventListener("pointermove", function(e){ if (down === null) return; pano.scrollLeft -= (e.clientX - down); down = e.clientX; });
+    var up = function(){ down = null; pano.classList.remove("grabbing"); };
     pano.addEventListener("pointerup", up); pano.addEventListener("pointercancel", up);
+    var pimg = pano.querySelector("img");
     if (pimg.complete) panoLayout(); else pimg.addEventListener("load", panoLayout);
   }
 
@@ -1173,21 +1310,232 @@ window.IMG = {"c-desk-stick": "data:image/webp;base64,UklGRsJuAABXRUJQVlA4ILZuAA
 </script>
 
 <script>
-/* ===== OBRAZAC ZA UPIT =====
-   Upit (s priloženom datotekom) ide preko FormSubmit.co izravno na STUDIO_EMAIL.
-   VAŽNO: prvi put kad netko pošalje obrazac, FormSubmit šalje potvrdni e-mail na
-   studio99design.info@gmail.com s linkom "Activate Form" — kliknuti ga JEDNOM.
-   Ako slanje ne uspije, obrazac složi tekst upita i ponudi kopiranje / mailto. */
+/* ===== PANEL ZA UPITE: adresa stranice + #/upiti, ulaz šifrom (ADMIN_PIN u Vercelu) ===== */
 (function(){
   "use strict";
-  var STUDIO_EMAIL  = "studio99design.info@gmail.com";
-  var FORM_ENDPOINT = "https://formsubmit.co/" + STUDIO_EMAIL;
+  var adm = document.getElementById("adm"); if (!adm) return;
+  var STATUSI = [["novo","Novo","#892424"],["u_obradi","U obradi","#8A6A1F"],["ponuda_poslana","Ponuda poslana","#2F5D8A"],
+    ["dogovoreno","Dogovoreno","#2E7D32"],["zavrseno","Završeno","#55544F"],["odbijeno","Odbijeno","#9A9993"]];
+  var ST = {}; STATUSI.forEach(function(x){ ST[x[0]] = x; });
+  var KEY = "s99_pin", pin = "", items = [], filt = "sve", q = "", sel = null, started = false, delArm = null, timer = null;
+  function $(id){ return document.getElementById(id); }
+  function h(tag, attrs){
+    var el = document.createElement(tag);
+    if (attrs) for (var k in attrs){ var v = attrs[k]; if (v === null || v === undefined || v === false) continue;
+      if (k === "text") el.textContent = v; else if (k === "on") for (var e in v) el.addEventListener(e, v[e]);
+      else el.setAttribute(k, v === true ? "" : v); }
+    for (var i = 2; i < arguments.length; i++){ var c = arguments[i]; if (c === null || c === undefined || c === false) continue;
+      (Array.isArray(c) ? c : [c]).forEach(function(x){ if (x !== null && x !== undefined && x !== false) el.appendChild(typeof x === "string" ? document.createTextNode(x) : x); }); }
+    return el;
+  }
+  function toast(t){ var e = $("aToast"); e.textContent = t; e.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(function(){ e.hidden = true; }, 2600); }
+  function fmt(d, full){ var x = new Date(d), n = new Date();
+    if (!full && x.toDateString() === n.toDateString()) return x.toLocaleTimeString("hr-HR", {hour:"2-digit", minute:"2-digit"});
+    return x.toLocaleDateString("hr-HR", {day:"numeric", month:"numeric", year: full ? "numeric" : undefined}) + (full ? " u " + x.toLocaleTimeString("hr-HR", {hour:"2-digit", minute:"2-digit"}) : ""); }
+  function eur(n){ return n === null || n === undefined || n === "" ? "" : Number(n).toLocaleString("hr-HR", {minimumFractionDigits:2, maximumFractionDigits:2}) + " €"; }
+  function chip(st){ var s = ST[st] || ST.novo; return h("span", {"class":"chip", style:"--c:" + s[2]}, s[1]); }
+
+  function api(body){
+    return fetch("/api/panel", { method:"POST", headers:{ "Content-Type":"application/json", "x-pin":pin }, body:JSON.stringify(body) })
+      .then(function(r){ return r.json().catch(function(){ return {}; }).then(function(j){
+        if (r.status === 401){ lock("Kriva šifra."); throw new Error("pin"); }
+        if (!r.ok || !j.ok) throw new Error(j.error || "Greška");
+        return j; }); });
+  }
+
+  /* ---- ulaz / izlaz ---- */
+  function route(){
+    var on = location.hash === "#/upiti" || /^\/upiti\/?$/.test(location.pathname);
+    adm.hidden = !on; document.body.classList.toggle("adm-on", on);
+    if (on && !started){ started = true; boot(); }
+    if (on) window.scrollTo(0, 0);
+  }
+  function lock(msg){
+    clearInterval(timer); pin = ""; try{ localStorage.removeItem(KEY); }catch(e){}
+    $("aApp").hidden = true; $("aPin").hidden = false; $("aPinMsg").textContent = msg || ""; $("aPinIn").value = ""; $("aPinIn").focus();
+  }
+  function enter(){
+    $("aPin").hidden = true; $("aApp").hidden = false;
+    load().catch(function(e){ if (e.message !== "pin") toast(e.message); });
+    clearInterval(timer); timer = setInterval(function(){ if (!document.hidden && !adm.hidden) load(true).catch(function(){}); }, 60000);
+  }
+  function boot(){
+    try{ pin = localStorage.getItem(KEY) || ""; }catch(e){}
+    if (pin) api({akcija:"provjera"}).then(enter, function(e){ if (e.message !== "pin") lock(e.message); });
+    else lock("");
+  }
+  $("aPinForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    pin = $("aPinIn").value.trim(); if (!pin) return;
+    $("aPinMsg").textContent = "Provjera…";
+    api({akcija:"provjera"}).then(function(){
+      try{ if ($("aRemember").checked) localStorage.setItem(KEY, pin); }catch(err){}
+      $("aPinMsg").textContent = ""; enter();
+    }, function(err){ if (err.message !== "pin") $("aPinMsg").textContent = err.message; });
+  });
+  $("aOut").addEventListener("click", function(){ lock(""); if (/^\/upiti/.test(location.pathname)) location.href = "/"; else location.hash = ""; });
+  $("aRefresh").addEventListener("click", function(){ load(true).then(function(){ toast("Osvježeno."); }, function(){}); });
+  $("aQ").addEventListener("input", function(){ q = this.value.trim().toLowerCase(); list(); });
+
+  /* ---- popis ---- */
+  function load(quiet){ return api({akcija:"popis"}).then(function(j){ items = j.upiti || []; tabs(); list(); if (!quiet && sel) detail(); }); }
+  function tabs(){
+    var c = {sve:items.length}; STATUSI.forEach(function(x){ c[x[0]] = 0; }); items.forEach(function(i){ c[i.status] = (c[i.status] || 0) + 1; });
+    var t = $("aTabs"); t.innerHTML = "";
+    [["sve","Svi"]].concat(STATUSI).forEach(function(x){
+      t.appendChild(h("button", {"class":"a-tab", type:"button", "aria-pressed":String(filt === x[0]), on:{click:function(){ filt = x[0]; tabs(); list(); }}}, x[1], h("b", null, String(c[x[0]] || 0))));
+    });
+    var n = items.filter(function(i){ return !i.procitano; }).length;
+    $("aCnt").textContent = n ? n + (n === 1 ? " nepročitan" : " nepročitanih") : "";
+  }
+  function list(){
+    var l = $("aList"); l.innerHTML = "";
+    var v = items.filter(function(i){
+      if (filt !== "sve" && i.status !== filt) return false;
+      return !q || [i.ime, i.firma, i.email, i.telefon, i.vrsta, i.opis, i.biljeske].join(" ").toLowerCase().indexOf(q) >= 0;
+    });
+    if (!v.length){ l.appendChild(h("p", {"class":"a-empty"}, items.length ? "Nema upita za ovaj odabir." : "Još nema upita. Kad netko pošalje obrazac, pojavit će se ovdje.")); return; }
+    v.forEach(function(i){
+      l.appendChild(h("button", {"class":"a-item" + (i.procitano ? "" : " unread"), type:"button", "aria-current":String(i.id === sel), on:{click:function(){ open(i.id); }}},
+        h("div", {"class":"a-row"}, h("span", {"class":"a-name"}, i.ime + (i.firma ? " · " + i.firma : "")), h("span", {"class":"a-date"}, fmt(i.created_at))),
+        h("div", {"class":"a-vr"}, i.vrsta || "Vrsta nije navedena"),
+        h("div", {"class":"a-snip"}, i.opis || ""),
+        h("div", {"class":"a-foot"}, chip(i.status), i.iznos !== null && i.iznos !== undefined ? h("span", {"class":"a-eur"}, eur(i.iznos)) : null)));
+    });
+  }
+  function upd(u){ var k = items.findIndex(function(x){ return x.id === u.id; }); if (k >= 0) items[k] = u; tabs(); list(); }
+  function open(id){
+    sel = id; delArm = null; adm.classList.add("open"); list(); detail(); window.scrollTo(0, 0);
+    var i = items.find(function(x){ return x.id === id; });
+    if (i && !i.procitano) api({akcija:"procitano", id:id}).then(function(j){ upd(j.upit); }, function(){});
+  }
+
+  /* ---- detalj ---- */
+  function claude(i){
+    var L = ["Upit klijenta — Studio 99", "", "Primljeno: " + fmt(i.created_at, true), "Ime: " + i.ime];
+    if (i.firma) L.push("Tvrtka: " + i.firma); L.push("E-mail: " + i.email); if (i.telefon) L.push("Telefon: " + i.telefon);
+    L.push("Vrsta: " + (i.vrsta || "—")); if (i.rok) L.push("Rok: " + i.rok); if (i.privitak_ime) L.push("Privitak: " + i.privitak_ime);
+    L.push("Status: " + (ST[i.status] || ST.novo)[1]); if (i.iznos !== null && i.iznos !== undefined) L.push("Ponuđeni iznos: " + eur(i.iznos));
+    L.push("", "Opis:", i.opis || "—"); if (i.biljeske) L.push("", "Moje bilješke:", i.biljeske);
+    (i.odgovori || []).forEach(function(o){ L.push("", "Moj odgovor (" + fmt(o.created_at, true) + ")" + (o.predmet ? " — " + o.predmet : "") + ":", o.tekst); });
+    L.push("", "Pomozi mi: kako to izvesti, što još pitati klijenta i koliko naplatiti?");
+    return L.join("\n");
+  }
+  function copy(t){
+    function fb(){ var ta = h("textarea", {style:"position:fixed;left:-9999px"}); ta.value = t; document.body.appendChild(ta); ta.select();
+      try{ document.execCommand("copy"); toast("Kopirano."); }catch(e){ toast("Kopiranje nije uspjelo."); } ta.remove(); }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(function(){ toast("Kopirano. Zalijepite u razgovor s Claudeom."); }, fb); else fb();
+  }
+  var TPL = {
+    pitanja: function(i){ return "Poštovani/a " + i.ime + ",\n\nhvala na upitu. Kako bismo pripremili točnu ponudu, molimo vas još nekoliko informacija:\n\n- \n- \n\nAko vam je lakše, možemo se čuti i telefonom.\n\nLijep pozdrav,\nStudio 99\n099 754 3116"; },
+    ponuda: function(i){ return "Poštovani/a " + i.ime + ",\n\nhvala na strpljenju. Za " + (i.vrsta ? i.vrsta.toLowerCase() : "vaš projekt") + " predlažemo sljedeće:\n\nŠto dobivate: \nRok izrade: \nCijena: " + eur(i.iznos) + "\n\nU cijenu su uključene revizije. Ako vam ponuda odgovara, samo odgovorite na ovaj e-mail i krećemo s radom.\n\nLijep pozdrav,\nStudio 99\n099 754 3116"; },
+    dogovor: function(i){ return "Poštovani/a " + i.ime + ",\n\nhvala na povjerenju. Potvrđujemo dogovor i krećemo s radom. Prve prijedloge šaljemo do \n\nAko imate primjere, tekstove ili logotip, slobodno ih pošaljite odgovorom na ovaj e-mail.\n\nLijep pozdrav,\nStudio 99\n099 754 3116"; }
+  };
+  function mailUrl(to, subj, body){
+    var mobile = window.matchMedia("(pointer:coarse)").matches;
+    if (mobile) return "mailto:" + to + "?subject=" + encodeURIComponent(subj) + "&body=" + encodeURIComponent(body);
+    return "https://mail.google.com/mail/?view=cm&fs=1&to=" + encodeURIComponent(to) + "&su=" + encodeURIComponent(subj) + "&body=" + encodeURIComponent(body);
+  }
+  function detail(){
+    var d = $("aDet"), i = items.find(function(x){ return x.id === sel; });
+    if (!i){ d.hidden = true; $("aPh").hidden = false; return; }
+    $("aPh").hidden = true; d.hidden = false; d.innerHTML = "";
+    var st = h("select", {"aria-label":"Status", on:{change:function(){ api({akcija:"spremi", id:i.id, status:st.value}).then(function(j){ upd(j.upit); toast("Status: " + ST[st.value][1]); }, function(e){ toast(e.message); }); }}},
+      STATUSI.map(function(x){ var o = h("option", {value:x[0]}, x[1]); if (x[0] === i.status) o.selected = true; return o; }));
+    var del = h("button", {"class":"b b--sm b--danger", type:"button", on:{click:function(){
+      if (delArm !== i.id){ delArm = i.id; del.textContent = "Sigurno obrisati?"; setTimeout(function(){ if (delArm === i.id){ delArm = null; del.textContent = "Obriši"; } }, 4000); return; }
+      api({akcija:"obrisi", id:i.id}).then(function(){ items = items.filter(function(x){ return x.id !== i.id; }); sel = null; adm.classList.remove("open"); tabs(); list(); detail(); toast("Upit obrisan."); }, function(e){ toast(e.message); });
+    }}}, "Obriši");
+    d.appendChild(h("button", {"class":"b b--sm a-back", type:"button", on:{click:function(){ adm.classList.remove("open"); }}}, "← Svi upiti"));
+    d.appendChild(h("div", {"class":"a-dh"}, h("div", null, h("h2", null, i.ime), h("p", {"class":"a-sub"}, (i.firma ? i.firma + " · " : "") + "Primljeno " + fmt(i.created_at, true))), st));
+    var acts = h("div", {"class":"a-acts"});
+    if (i.telefon) acts.appendChild(h("a", {"class":"b b--green", href:"tel:" + i.telefon.replace(/[^\d+]/g, "")}, "Nazovi " + i.telefon));
+    acts.appendChild(h("button", {"class":"b", type:"button", on:{click:function(){ copy(claude(i)); }}}, "Kopiraj za Claude"));
+    acts.appendChild(del);
+    d.appendChild(acts);
+    d.appendChild(h("section", {"class":"a-card"}, h("h3", null, "Kontakt i projekt"), h("dl", {"class":"a-kv"},
+      h("div", null, h("dt", null, "E-mail"), h("dd", null, i.email)),
+      h("div", null, h("dt", null, "Telefon"), h("dd", null, i.telefon || "—")),
+      h("div", null, h("dt", null, "Vrsta"), h("dd", null, i.vrsta || "—")),
+      h("div", null, h("dt", null, "Rok"), h("dd", null, i.rok || "—")))));
+    d.appendChild(h("section", {"class":"a-card"}, h("h3", null, "Što klijent treba"), h("div", {"class":"a-opis"}, i.opis || "")));
+    if (i.privitak_ime){
+      var pv = h("section", {"class":"a-card a-priv"}, h("h3", null, "Privitak"));
+      if (i.privitak_url){
+        pv.appendChild(h("a", {"class":"b b--sm", href:i.privitak_url, target:"_blank", rel:"noopener"}, "Otvori " + i.privitak_ime));
+        if (/\.(png|jpe?g|webp|gif)(-|$|\?)/i.test(i.privitak_url) || /\.(png|jpe?g|webp|gif)$/i.test(i.privitak_ime)) pv.appendChild(h("img", {src:i.privitak_url, alt:"Privitak"}));
+      } else pv.appendChild(h("p", null, i.privitak_ime));
+      d.appendChild(pv);
+    }
+    var iz = h("input", {type:"number", id:"aIz", min:"0", step:"0.01", inputmode:"decimal", placeholder:"npr. 250"}); if (i.iznos !== null && i.iznos !== undefined) iz.value = i.iznos;
+    var bl = h("textarea", {id:"aBl", placeholder:"Što ste dogovorili, ideje, cijena kod partnera…"}); bl.value = i.biljeske || "";
+    d.appendChild(h("section", {"class":"a-card"}, h("h3", null, "Ponuda i bilješke (vidite samo vi)"),
+      h("div", {"class":"a-two"}, h("div", null, h("label", {"class":"a-lbl", "for":"aIz"}, "Iznos ponude (€)"), iz), h("div", null, h("label", {"class":"a-lbl", "for":"aBl"}, "Bilješke"), bl)),
+      h("div", {style:"margin-top:12px"}, h("button", {"class":"b b--ink b--sm", type:"button", on:{click:function(){
+        api({akcija:"spremi", id:i.id, iznos: iz.value === "" ? null : iz.value, biljeske: bl.value}).then(function(j){ upd(j.upit); toast("Spremljeno."); }, function(e){ toast(e.message); });
+      }}}, "Spremi"))));
+    var th = h("section", {"class":"a-card"}, h("h3", null, "Poslani odgovori"));
+    var od = i.odgovori || [];
+    if (!od.length) th.appendChild(h("p", {style:"color:var(--muted)"}, "Još niste odgovorili na ovaj upit."));
+    od.forEach(function(o){ th.appendChild(h("div", {"class":"a-msgc"}, h("div", {"class":"a-msgc__h"}, h("b", null, o.predmet || "Odgovor"), h("span", null, fmt(o.created_at, true))), h("div", {"class":"a-msgc__t"}, o.tekst))); });
+    d.appendChild(th);
+    var subj = h("input", {type:"text", id:"aSubj", value:"Re: Vaš upit — " + (i.vrsta || "Studio 99")});
+    var body = h("textarea", {id:"aBody", style:"min-height:190px", placeholder:"Napišite odgovor klijentu…"});
+    var after = h("select", {"aria-label":"Status nakon slanja"}, h("option", {value:""}, "Status ostaje isti"), h("option", {value:"u_obradi"}, "Nakon slanja: U obradi"),
+      h("option", {value:"ponuda_poslana"}, "Nakon slanja: Ponuda poslana"), h("option", {value:"dogovoreno"}, "Nakon slanja: Dogovoreno"));
+    function tb(k, l){ return h("button", {"class":"b b--sm", type:"button", on:{click:function(){ body.value = TPL[k](i); if (k === "ponuda") after.value = "ponuda_poslana"; if (k === "dogovor") after.value = "dogovoreno"; body.focus(); }}}, l); }
+    var send = h("button", {"class":"b b--red", type:"button", on:{click:function(){
+      if (!body.value.trim()){ toast("Upišite poruku."); return; }
+      var url = mailUrl(i.email, subj.value, body.value);
+      if (url.indexOf("mailto:") === 0) location.href = url; else window.open(url, "_blank", "noopener");
+      api({akcija:"odgovor", id:i.id, predmet:subj.value, tekst:body.value, status:after.value || null}).then(function(j){ upd(j.upit); body.value = ""; detail(); toast("Zabilježeno. Pošaljite poruku u Gmailu."); }, function(e){ toast(e.message); });
+    }}}, "Otvori u Gmailu i pošalji");
+    d.appendChild(h("section", {"class":"a-card a-compose"}, h("h3", null, "Odgovor klijentu"),
+      h("div", {"class":"a-tpl"}, tb("pitanja", "Predložak: pitanja"), tb("ponuda", "Predložak: ponuda"), tb("dogovor", "Predložak: potvrda dogovora")),
+      h("div", null, h("label", {"class":"a-lbl", "for":"aSubj"}, "Predmet"), subj),
+      h("div", null, h("label", {"class":"a-lbl", "for":"aBody"}, "Poruka"), body),
+      h("div", {"class":"a-send"}, after, send),
+      h("p", {style:"font-size:.84rem;color:var(--muted)"}, "Otvara se Gmail s već upisanom porukom za " + i.email + ". Tamo samo kliknete Pošalji. Odgovor ostaje zabilježen ovdje.")));
+  }
+
+  window.addEventListener("hashchange", route);
+  route();
+})();
+</script>
+
+<script>
+/* Instalacija kao aplikacija (ikona na radnoj površini / početnom zaslonu) */
+(function(){
+  if ("serviceWorker" in navigator && location.protocol === "https:" && !/claude\.(ai|site)|claudeusercontent/.test(location.host)){
+    window.addEventListener("load", function(){ navigator.serviceWorker.register("/sw.js").catch(function(){}); });
+  }
+  var ev = null, btn = document.getElementById("aInstall");
+  window.addEventListener("beforeinstallprompt", function(e){ e.preventDefault(); ev = e; if (btn) btn.hidden = false; });
+  window.addEventListener("appinstalled", function(){ ev = null; if (btn) btn.hidden = true; });
+  if (btn) btn.addEventListener("click", function(){
+    if (!ev) return;
+    ev.prompt(); ev.userChoice.finally(function(){ ev = null; btn.hidden = true; });
+  });
+})();
+</script>
+
+<script>
+/* ===== OBRAZAC ZA UPIT =====
+   Upit (s privitkom) ide na /api/upit (Vercel funkcija): sprema se u bazu, stiže na
+   studio99design.info@gmail.com i vidi se u panelu /upiti. Klijent dobiva potvrdu e-mailom.
+   Ako slanje ne uspije, obrazac složi tekst upita i ponudi kopiranje. */
+(function(){
+  "use strict";
+  var STUDIO_EMAIL = "studio99design.info@gmail.com";
+  var ENDPOINT = "/api/upit";
+  var MAX = 4 * 1024 * 1024;
 
   var form = document.getElementById("inq");
   if (!form) return;
   var out = document.getElementById("fout"), stat = document.getElementById("fstat");
   var after = document.getElementById("fafter"), copyBtn = document.getElementById("copy");
   var sendBtn = form.querySelector(".btn--send");
+  var t0 = document.getElementById("f_t"); if (t0) t0.value = String(Date.now());
 
   function el(id){ return document.getElementById(id); }
   function v(id){ var e = el(id); return e ? e.value.trim() : ""; }
@@ -1210,64 +1558,60 @@ window.IMG = {"c-desk-stick": "data:image/webp;base64,UklGRsJuAABXRUJQVlA4ILZuAA
   function valid(){
     var ok = true;
     if (!v("ime")){ mark("ime", true); ok = false; }
-    if (!v("email") || v("email").indexOf("@") < 1){ mark("email", true); ok = false; }
+    if (!v("email") || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v("email"))){ mark("email", true); ok = false; }
     if (!v("opis")){ mark("opis", true); ok = false; }
-    if (!ok) stat.textContent = "Ispunite ime, ispravan e-mail i opis projekta.";
-    return ok;
+    if (!ok){ stat.textContent = "Ispunite ime, ispravan e-mail i opis projekta."; return false; }
+    var upl = el("upload");
+    if (upl && upl.files && upl.files[0] && upl.files[0].size > MAX){
+      stat.textContent = "Datoteka je veća od 4 MB. Pošaljite manju sliku ili PDF."; return false;
+    }
+    return true;
   }
   function fallback(){
     var t = build();
     out.textContent = t; out.classList.add("on"); after.hidden = false;
-    stat.textContent = "Slanje nije uspjelo. Kopirajte tekst upita i pošaljite ga na " + STUDIO_EMAIL + ".";
+    stat.textContent = "Slanje trenutno nije uspjelo. Kopirajte tekst upita i pošaljite ga na " + STUDIO_EMAIL + " ili nas nazovite na 099 754 3116.";
   }
 
-  /* Bez privitka: AJAX (pouzdana potvrda). S privitkom: obično slanje u skriveni okvir,
-     jer FormSubmit privitke prima samo kao klasičan multipart obrazac. */
-  var AJAX = "https://formsubmit.co/ajax/" + STUDIO_EMAIL;
-  function done(){
-    form.reset();
-    stat.textContent = "Upit je poslan. Javljamo se u roku od 24 sata.";
-    out.classList.remove("on"); after.hidden = true; sendBtn.disabled = false;
+  /* 1) /api/upit sprema upit za panel #/upiti, 2) FormSubmit šalje e-mail studiju i potvrdu klijentu */
+  var MAIL = "https://formsubmit.co/ajax/" + STUDIO_EMAIL;
+  function toMail(id){
+    var d = { "Ime":v("ime"), "Tvrtka":v("firma"), "email":v("email"), "Telefon":v("tel"),
+      "Vrsta":v("vrsta"), "Rok":v("rok"), "Opis":v("opis") };
+    var upl = el("upload"); if (upl && upl.files && upl.files[0]) d["Privitak"] = upl.files[0].name + " (vidi u panelu)";
+    d["Panel"] = location.origin + "/#/upiti";
+    d._subject = "Novi upit — " + (v("vrsta") || "Studio 99") + " — " + v("ime");
+    d._template = "table"; d._captcha = "false";
+    d._autoresponse = "Poštovani/a " + v("ime") + ", hvala na upitu. Pregledat ćemo ga i javiti vam se u roku od 24 sata. Ako je hitno, nazovite nas na 099 754 3116. Lijep pozdrav, Studio 99";
+    return fetch(MAIL, { method:"POST", headers:{ "Content-Type":"application/json", "Accept":"application/json" }, body:JSON.stringify(d) })
+      .then(function(r){ return r.json().then(function(j){ return r.ok && String(j.success) === "true"; }); })
+      .catch(function(){ return false; });
   }
-  function hid(n, val){ var i = form.querySelector('input[type=hidden][name="'+n+'"]');
-    if (!i){ i = document.createElement("input"); i.type = "hidden"; i.name = n; form.appendChild(i); } i.value = val; }
+  function toDb(){
+    return fetch(ENDPOINT, { method:"POST", body:new FormData(form), headers:{ "Accept":"application/json" } })
+      .then(function(r){ return r.json().then(function(j){ return r.ok && j.ok; }); })
+      .catch(function(){ return false; });
+  }
 
   form.addEventListener("submit", function(e){
     e.preventDefault();
     if (!valid()) return;
     sendBtn.disabled = true;
     stat.textContent = "Šaljemo…";
-    var subject = "Upit — " + (v("vrsta") || "Studio 99");
-    var upl = el("upload");
-    var hasFile = !!(upl && upl.files && upl.files[0]);
-
-    if (hasFile){
-      var fr = document.getElementById("fs_frame"), ok = false;
-      hid("_subject", subject); hid("_captcha", "false"); hid("_template", "table");
-      fr.onload = function(){ if (ok) return; ok = true; done(); };
-      setTimeout(function(){ if (!ok){ ok = true; fallback(); sendBtn.disabled = false; } }, 20000);
-      form.action = FORM_ENDPOINT; form.method = "POST"; form.target = "fs_frame";
-      try { HTMLFormElement.prototype.submit.call(form); } catch(err){ ok = true; fallback(); sendBtn.disabled = false; }
-      return;
-    }
-
-    var data = { ime:v("ime"), firma:v("firma"), email:v("email"), telefon:v("tel"),
-      vrsta:v("vrsta"), rok:v("rok"), opis:v("opis"), _subject:subject, _captcha:"false", _template:"table" };
-    fetch(AJAX, { method:"POST", headers:{ "Content-Type":"application/json", "Accept":"application/json" }, body:JSON.stringify(data) })
-      .then(function(r){ return r.json().then(function(j){ return {ok:r.ok, j:j}; }); })
-      .then(function(res){
-        if (!res.ok || String(res.j.success) !== "true") throw new Error("greska");
-        done();
-      })
-      .catch(function(){ fallback(); sendBtn.disabled = false; });
+    Promise.all([toDb(), toMail()]).then(function(res){
+      if (!res[0] && !res[1]){ fallback(); sendBtn.disabled = false; return; }
+      form.reset(); if (t0) t0.value = String(Date.now());
+      stat.textContent = "Upit je poslan. Javljamo se u roku od 24 sata.";
+      out.classList.remove("on"); after.hidden = true; sendBtn.disabled = false;
+    });
   });
 
   copyBtn.addEventListener("click", function(){
     var t = build();
     function sel(){ var r = document.createRange(); r.selectNodeContents(out); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
-      stat.textContent = "Tekst je označen — kopirajte ga i zalijepite u poruku."; }
+      stat.textContent = "Tekst je označen. Kopirajte ga i zalijepite u poruku."; }
     if (navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(t).then(function(){ stat.textContent = "Tekst upita je kopiran — zalijepite ga u poruku."; }, sel);
+      navigator.clipboard.writeText(t).then(function(){ stat.textContent = "Tekst upita je kopiran. Zalijepite ga u poruku."; }, sel);
     } else sel();
   });
 })();
